@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SevaSetu | Doctor Consultation</title>
+
+<style>
+
+:root {
+    --primary: #2d9a63;
+    --secondary: #27ae60;
+    --accent: #f39c12;
+    --dark: #2c3e50;
+    --light: #f4f7f6;
+}
+
+* { margin: 0;
+   padding: 0;
+    box-sizing: border-box; 
+ font-family: 'Segoe UI', sans-serif;
+ }
+
+ html, body {
+    overflow-x: hidden;
+  }
+  
+body { background: var(--light); color: var(--dark); line-height: 1.6; }
+
+
+.navbar {
+    display: flex;
+     justify-content: space-between; 
+     align-items: center;
+    padding: 1rem 5%; background: white; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky; top: 0; z-index: 1000;
+}
+.logo { font-size: 1.5rem; 
+    font-weight: bold; 
+    color: var(--primary); 
+}
+
+.logo span
+ { color: var(--dark); }
+
+.nav-links { list-style: none; 
+    display: flex; 
+    font-size: 25px;
+    gap: 2rem; }
+
+.nav-links a 
+{ text-decoration: none; 
+    color: var(--dark);
+     font-weight: 500;
+     }
+
+.profile-btn { 
+    color: var(--primary) !important; 
+    font-weight: bold; 
+}
+
+/* DOCTORS SECTION */
+#doctors {
+  padding: 40px 6%;
+}
+
+#doctors h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 30px;
+}
+
+.doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.doctor-card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px);
+  border: 2px solid var(--primary);
+}
+
+.doctor-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.doctor-card h3 {
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.speciality {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.experience {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.contact-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.contact-btn:hover {
+  background: #248a57;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">SEVA<span>SETU</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="medicine.html">Medicines</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="cart.html" class="profile-btn">Cart</a></li>
+  </ul>
+</header>
+
+<!-- DOCTOR CONSULTATION -->
+<section id="doctors">
+  <h2>Available Doctors</h2>
+
+  <div class="doctor-grid">
+
+    <!-- 10 Doctor Cards -->
+    <div class="doctor-card">
+      <img src="./Dr-Sathiamma.jpg" class="doctor-img">
+      <h3>Dr. Anjali Sharma</h3>
+      <div class="speciality">General Physician</div>
+      <div class="experience">8 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Anjali Sharma')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc.jpeg" class="doctor-img">
+      <h3>Dr. Rahul Verma</h3>
+      <div class="speciality">Cardiologist</div>
+      <div class="experience">12 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Rahul Verma')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc1.jpg" class="doctor-img">
+      <h3>Dr. Neha Joshi</h3>
+      <div class="speciality">Gynecologist</div>
+      <div class="experience">10 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Neha Joshi')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc3.jpeg" class="doctor-img">
+      <h3>Dr. Amit Patil</h3>
+      <div class="speciality">Pediatrician</div>
+      <div class="experience">7 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Amit Patil')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc4.png" class="doctor-img">
+      <h3>Dr. Pooja Deshmukh</h3>
+      <div class="speciality">Dermatologist</div>
+      <div class="experience">9 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Pooja Deshmukh')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./Dr-Sathiamma.jpg" class="doctor-img">
+      <h3>Dr. Kunal Mehta</h3>
+      <div class="speciality">Orthopedic</div>
+      <div class="experience">11 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Kunal Mehta')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc1.jpg" class="doctor-img">
+      <h3>Dr. Ritu Singh</h3>
+      <div class="speciality">ENT Specialist</div>
+      <div class="experience">6 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Ritu Singh')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc3.jpeg" class="doctor-img">
+      <h3>Dr. Manoj Kulkarni</h3>
+      <div class="speciality">Neurologist</div>
+      <div class="experience">15 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Manoj Kulkarni')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc4.png" class="doctor-img">
+      <h3>Dr. Sneha Rao</h3>
+      <div class="speciality">Psychologist</div>
+      <div class="experience">5 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Sneha Rao')">Contact Doctor</button>
+    </div>
+
+    <div class="doctor-card">
+      <img src="./doc.jpeg" class="doctor-img">
+      <h3>Dr. Vikram Joshi</h3>
+      <div class="speciality">Diabetologist</div>
+      <div class="experience">13 Years Experience</div>
+      <button class="contact-btn" onclick="contactDoctor('Dr. Vikram Joshi')">Contact Doctor</button>
+    </div>
+
+  </div>
+</section>
+<footer style="background:#ffffff; border-top:1px solid #e5e7eb; padding:40px 5% 15px; font-family:'Segoe UI', sans-serif;">
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:30px;">
+  
+      <!-- About -->
+      <div>
+        <h3 style="color:#2d9a63; margin-bottom:10px;">SevaSetu</h3>
+        <p style="font-size:14px; color:#555; line-height:1.6;">
+          SevaSetu is a rural healthcare access platform built to bridge the gap between
+          communities and essential medical services using technology.
+        </p>
+      </div>
+  
+      <!-- Mission -->
+      <div>
+        <h3 style="color:#2d9a63; margin-bottom:10px;">Our Mission</h3>
+        <p style="font-size:14px; color:#555; line-height:1.6;">
+          To make healthcare affordable, accessible, and reliable by connecting users
+          with doctors, pharmacies, and health workers digitally.
+        </p>
+        <p style="font-size:14px;"><strong>Motto:</strong> Bringing Healthcare to Every Home</p>
+      </div>
+  
+      <!-- Contact -->
+      <div>
+        <h3 style="color:#2d9a63; margin-bottom:10px;">Contact Us</h3>
+        <p style="font-size:14px; color:#555;">📍 Nagpur, Maharashtra, India</p>
+        <p style="font-size:14px; color:#555;">📞 +91 98765 43210</p>
+        <p style="font-size:14px; color:#555;">✉️ sevasetu.health@gmail.com</p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div>
+        <h3 style="color:#2d9a63; margin-bottom:10px;">Quick Links</h3>
+        <a href="index.html" style="display:block; font-size:14px; color:#555; text-decoration:none; margin-bottom:6px;">Home</a>
+        <a href="medicines.html" style="display:block; font-size:14px; color:#555; text-decoration:none; margin-bottom:6px;">Medicines</a>
+        <a href="doctors.html" style="display:block; font-size:14px; color:#555; text-decoration:none; margin-bottom:6px;">Doctors</a>
+        <a href="login.html" style="display:block; font-size:14px; color:#555; text-decoration:none;">Login</a>
+      </div>
+  
+    </div>
+  
+    <div style="text-align:center; margin-top:30px; font-size:13px; color:#888; border-top:1px solid #eee; padding-top:10px;">
+      © 2026 SevaSetu | Built with ❤️ for Rural Healthcare Access
+    </div>
+  
+  </footer>
+  
+<script>
+function contactDoctor(name) {
+  alert("Request sent to " + name + ". Doctor will contact you shortly (Demo).");
+}
+</script>
+
+</body>
+</html>

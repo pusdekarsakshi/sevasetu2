@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SevaSetu</title>
+
+<!-- Google Font (similar to modern healthcare sites) -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f8fdfc;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: linear-gradient(90deg, #2aa879, #45c4a1);
+  padding: 14px 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.navbar nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 28px;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.navbar nav a:hover {
+  text-decoration: underline;
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 40px 70px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 30px;
+}
+
+.hero-image {
+  position: relative;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #2aa879, #3bbf9b);
+  color: white;
+  padding: 18px 22px;
+  border-radius: 14px;
+  max-width: 70%;
+}
+
+.hero-overlay h2 {
+  margin: 6px 0;
+  font-size: 20px;
+}
+
+.hero-overlay p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.hero-right {
+  background: white;
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+}
+
+.hero-right h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.hero-right ul {
+  padding-left: 18px;
+}
+
+.hero-right li {
+  margin-bottom: 10px;
+  font-size: 14.5px;
+}
+
+/* ===== FEATURE CARDS ===== */
+.cards {
+  padding: 30px 70px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: white;
+  height: 170px;
+  border-radius: 20px;
+  padding: 22px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== PLANS ===== */
+.plans {
+  padding: 30px 70px;
+  background: #f1fffb;
+}
+
+.plan-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+.plan-card {
+  background: white;
+  padding: 26px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* ===== ADS ===== */
+.ads {
+  padding: 30px 70px;
+}
+
+.ads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.ad-box {
+  background: #e7fbf4;
+  padding: 20px;
+  border-radius: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #e3f7f1;
+  text-align: center;
+  padding: 14px;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="logo">SEVASETU</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Find Medicine</a>
+    <a href="#">Consult Doctor</a>
+    <a href="#">Health Info</a>
+    <a href="#">Support</a>
+  </nav>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e">
+    <div class="hero-overlay">
+      <h2>Rural Healthcare Access Platform</h2>
+      <p>Bringing Healthcare to Every Home</p>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <h2>Welcome to SevaSetu</h2>
+    <ul>
+      <li>Doctor call & video consultation</li>
+      <li>Buy medicines online</li>
+      <li>Offline appointment booking</li>
+      <li>Pregnancy & child care</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Feature Cards -->
+<section class="cards">
+  <div class="card">📞 Doctor Consultation</div>
+  <div class="card">💊 Buy Medicines</div>
+  <div class="card">🤰 Pregnancy Care</div>
+  <div class="card">🏥 Offline Appointment</div>
+  <div class="card">👶 Child Healthcare & Vaccines</div>
+  <div class="card">📚 Health Info & Nutrition</div>
+</section>
+
+<!-- Plans -->
+<section class="plans">
+  <h2>Subscription Plans</h2>
+  <div class="plan-grid">
+    <div class="plan-card">
+      <h3>Free</h3>
+      <p>Basic doctor access</p>
+    </div>
+    <div class="plan-card">
+      <h3>Premium ₹99/month</h3>
+      <p>Video consult + discounts</p>
+    </div>
+    <div class="plan-card">
+      <h3>Family ₹199/month</h3>
+      <p>5 members coverage</p>
+    </div>
+  </div>
+</section>
+
+<!-- Ads -->
+<section class="ads">
+  <h2>Sponsored & Partners</h2>
+  <div class="ads-grid">
+    <div class="ad-box">Ayushman Bharat</div>
+    <div class="ad-box">Govt Vaccination Drive</div>
+    <div class="ad-box">NGO Health Camps</div>
+    <div class="ad-box">Local Pharmacy Offers</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+  Prepared by: Mohini Daf, B.Tech (Computer Science)
+</div>
+
+</body>
+</html>

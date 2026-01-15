@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SevaSetu | Register</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #2d9a63;
+  --dark: #2c3e50;
+  --light: #f4f7f6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body { background: var(--light); color: var(--dark); }
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.logo span { color: var(--dark); }
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--dark);
+}
+
+.profile-btn {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* REGISTER FORM */
+.register-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+}
+
+.register-box {
+  background: white;
+  width: 100%;
+  max-width: 720px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.register-box h2 {
+  text-align: center;
+  color: var(--primary);
+}
+
+.register-box p {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab-btn.active {
+  background: #e8faf4;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  margin-bottom: 18px;
+}
+
+.register-btn {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-link a {
+  color: var(--primary);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* TOAST TOP CENTER */
+.toast {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+
+  background: #eafff5;
+  color: #2d9a63;
+
+  padding: 18px 32px;
+  border-radius: 18px;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+
+  font-weight: 700;
+  font-size: 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast i {
+  font-size: 24px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">SEVA<span>SETU</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="medicine.html">Medicines</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="login.html" class="profile-btn">Login</a></li>
+  </ul>
+</header>
+
+<!-- REGISTER -->
+<div class="register-wrapper">
+  <div class="register-box">
+    <h2>Create Your Account</h2>
+    <p>Join SevaSetu as User or Service Provider</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="selectType('user')">User</button>
+      <button class="tab-btn" onclick="selectType('provider')">Service Provider</button>
+    </div>
+
+    <select id="providerRole" style="display:none;">
+      <option value="">Select Service Type</option>
+      <option value="Doctor">Doctor</option>
+      <option value="Pharmacy">Local Pharmacy</option>
+      <option value="ASHA Worker">ASHA Worker</option>
+    </select>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="mobile" placeholder="Mobile Number">
+    <input type="email" id="email" placeholder="Email Address">
+    <input type="password" id="password" placeholder="Create Password">
+    <input type="text" id="idProof" placeholder="Registration ID / License Number" style="display:none;">
+
+    <button class="register-btn" onclick="register()">Register</button>
+
+    <div class="login-link">
+      Already have an account? <a href="login.html">Login here</a>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast">
+  <i id="toastIcon" class="fas fa-circle-check"></i>
+  <span id="toastMsg">Registered successfully</span>
+</div>
+
+<script>
+let registerType = "user";
+
+function selectType(type) {
+  registerType = type;
+  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+
+  document.getElementById("providerRole").style.display = type === "provider" ? "block" : "none";
+  document.getElementById("idProof").style.display = type === "provider" ? "block" : "none";
+}
+
+function showToast(message, icon) {
+  const toast = document.getElementById("toast");
+  document.getElementById("toastMsg").innerText = message;
+  document.getElementById("toastIcon").className = icon;
+
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2500);
+}
+
+function register() {
+  const name = document.getElementById("name").value;
+  const mobile = document.getElementById("mobile").value;
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("password").value;
+  const role = document.getElementById("providerRole").value;
+
+  if (!name || !mobile || !email || !pass) {
+    showToast("Please fill all fields", "fas fa-triangle-exclamation");
+    return;
+  }
+
+  if (registerType === "provider" && role === "") {
+    showToast("Select service type", "fas fa-triangle-exclamation");
+    return;
+  }
+
+  showToast("Registration successful", "fas fa-circle-check");
+
+  setTimeout(() => window.location.href = "login.html", 2000);
+}
+</script>
+
+</body>
+</html>

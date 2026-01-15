@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SevaSetu | Checkout</title>
+
+<style>
+body {
+  font-family: Segoe UI, sans-serif;
+  background: #f4f7f6;
+  margin: 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+h2 { color: #2d9a63; }
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+/* Payment methods */
+.method {
+  border: 1px solid #ddd;
+  padding: 16px 18px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+}
+
+.method:hover {
+  border-color: #2d9a63;
+  background: #f3fffa;
+}
+
+.method input[type="radio"] {
+  transform: scale(1.3);
+  accent-color: #2d9a63;
+}
+
+.payform {
+  margin: 10px 0 20px 0;
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  background: #2d9a63;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.summary {
+  background: #f1fff9;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: #eafff5;
+  color: #2d9a63;
+  padding: 16px 28px;
+  border-radius: 18px;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: 0.4s ease;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="checkout">
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div>
+      <h2>Shipping Details</h2>
+      <input id="name" placeholder="Full Name">
+      <input id="phone" placeholder="Phone Number">
+      <textarea id="address" placeholder="Full Address"></textarea>
+
+      <h2>Payment Method</h2>
+
+      <label class="method">
+        <span>UPI (Google Pay / PhonePe)</span>
+        <input type="radio" name="pay" onclick="showForm('upi')">
+      </label>
+
+      <div id="upi" class="payform hidden">
+        <input placeholder="Enter UPI ID (example@upi)">
+      </div>
+
+      <label class="method">
+        <span>Card</span>
+        <input type="radio" name="pay" onclick="showForm('card')">
+      </label>
+
+      <div id="card" class="payform hidden">
+        <input placeholder="Card Number">
+        <input placeholder="Expiry (MM/YY)">
+        <input placeholder="CVV">
+      </div>
+
+      <label class="method">
+        <span>Cash on Delivery</span>
+        <input type="radio" name="pay" onclick="showForm('cod')" checked>
+      </label>
+
+      <button onclick="placeOrder()">Place Order</button>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="summary">
+      <h3>Order Summary</h3>
+      <p>Items: <span id="items"></span></p>
+      <p>Subtotal: ₹<span id="subtotal"></span></p>
+      <p>Delivery: ₹20</p>
+      <hr>
+      <strong>Total: ₹<span id="total"></span></strong>
+      <p id="delivery-date" style="margin-top:10px;"></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div class="container hidden" id="track">
+  <div style="text-align:center;">
+    <h2>Order Placed Successfully 🎉</h2>
+    <p>Order ID: <strong id="orderId"></strong></p>
+    <p>Expected Delivery: <strong id="finalDate"></strong></p>
+    <br>
+    <button onclick="location.href='index.html'">Go to Home</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast">✅ Payment Successful! Order Placed</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function loadSummary() {
+  let qty = 0, total = 0;
+  cart.forEach(i => {
+    qty += i.qty;
+    total += i.qty * i.price;
+  });
+
+  document.getElementById("items").innerText = qty;
+  document.getElementById("subtotal").innerText = total;
+  document.getElementById("total").innerText = total + 20;
+
+  let date = new Date();
+  date.setDate(date.getDate() + 3);
+  document.getElementById("delivery-date").innerText =
+    "Expected delivery: " + date.toDateString();
+}
+loadSummary();
+
+function showForm(type) {
+  document.getElementById("upi").classList.add("hidden");
+  document.getElementById("card").classList.add("hidden");
+
+  if (type === "upi") {
+    document.getElementById("upi").classList.remove("hidden");
+  }
+  if (type === "card") {
+    document.getElementById("card").classList.remove("hidden");
+  }
+}
+
+function placeOrder() {
+  if (!name.value || !phone.value || !address.value) {
+    alert("Please fill all details");
+    return;
+  }
+
+  const toast = document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2000);
+
+  setTimeout(() => {
+    const orderId = "SEVA" + Math.floor(100000 + Math.random() * 900000);
+    let date = new Date();
+    date.setDate(date.getDate() + 3);
+
+    document.getElementById("checkout").classList.add("hidden");
+    document.getElementById("track").classList.remove("hidden");
+
+    document.getElementById("orderId").innerText = orderId;
+    document.getElementById("finalDate").innerText = date.toDateString();
+
+    localStorage.removeItem("cart");
+  }, 2200);
+}
+</script>
+
+</body>
+</html>

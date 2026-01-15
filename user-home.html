@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SevaSetu | User Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --primary: #2d9a63;
+  --bg: #f5f8f7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Segoe UI, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+}
+
+/* Navbar */
+
+.navbar {
+    display: flex;
+     justify-content: space-between; 
+     align-items: center;
+    padding: 1rem 5%; background: white; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky; top: 0; z-index: 1000;
+  }
+  .logo { font-size: 1.5rem; 
+    font-weight: bold; 
+    color: var(--primary); 
+  }
+  
+  .logo span
+  { color: var(--dark); }
+  
+  .nav-links { list-style: none; 
+    display: flex; 
+    font-size: 25px;
+    gap: 2rem; }
+  
+  .nav-links a 
+  { text-decoration: none; 
+    color: var(--dark);
+     font-weight: 500;
+     }
+  
+  .profile-btn { 
+    color: var(--primary) !important; 
+    font-weight: bold; 
+  }
+/* Main Layout */
+.main {
+  max-width: 1100px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 0 15px;
+}
+
+/* Left Card */
+.profile-card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.05);
+}
+
+.profile-card h2 {
+  margin-bottom: 5px;
+}
+
+.profile-card p {
+  color: gray;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+button {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.big-btn {
+  margin-top: 12px;
+  padding: 15px;
+  font-size: 15px;
+}
+
+/* Right Services */
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.service-card {
+  background: white;
+  padding: 18px;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,.05);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  transition: .2s;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  display: none;
+}
+
+/* Responsive */
+@media(max-width: 800px){
+  .main {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo">SEVASETU</div>
+  <div class="nav-links">
+    Home | Cart | Profile | Logout
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- LEFT SIDE -->
+  <div>
+    <div class="profile-card">
+      <h2>🙂 Complete Your Profile</h2>
+      <p>This helps doctors serve you better</p>
+
+      <input id="name" placeholder="Full Name">
+      <input id="phone" placeholder="Phone Number">
+      <input id="age" placeholder="Age">
+
+      <select id="gender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+
+      <textarea id="address" placeholder="Full Address"></textarea>
+
+      <button onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <button class="big-btn">💊 Order Medicines</button>
+    <button class="big-btn">👨‍⚕️ Consult Doctor</button>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="services">
+    <div class="service-card">📄 Upload Prescription</div>
+    <div class="service-card">📅 Book Appointment</div>
+    <div class="service-card">📦 Track Orders</div>
+    <div class="service-card">🔔 Notifications</div>
+    <div class="service-card">⭐ Feedback & Rating</div>
+  </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const fields = ["name", "phone", "age", "gender", "address"];
+
+window.onload = () => {
+  fields.forEach(f => {
+    if (localStorage.getItem(f)) {
+      document.getElementById(f).value = localStorage.getItem(f);
+    }
+  });
+};
+
+function saveProfile() {
+  let valid = true;
+
+  fields.forEach(f => {
+    const value = document.getElementById(f).value.trim();
+    if (!value) valid = false;
+  });
+
+  if (!valid) {
+    showToast("Please fill all details");
+    return;
+  }
+
+  fields.forEach(f => {
+    localStorage.setItem(f, document.getElementById(f).value);
+  });
+
+  showToast("Profile saved successfully ✅");
+}
+
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.innerText = msg;
+  toast.style.display = "block";
+
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 2500);
+}
+</script>
+
+</body>
+</html>
